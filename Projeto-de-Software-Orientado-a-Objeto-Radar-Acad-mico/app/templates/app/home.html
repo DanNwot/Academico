@@ -1,0 +1,43 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div class="row align-items-center min-vh-50 py-5">
+    <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-3 fw-bold text-white mb-4">
+            Gestão Acadêmica <br> <span style="color: #a8a8a8;">Sem Complicações</span>
+        </h1>
+        <p class="lead text-secondary mb-5 px-md-5">
+            O Radar-Acad oferece controle absoluto sobre turmas, alunos, frequências e ocorrências. 
+            Uma interface moderna construída para performance e clareza.
+        </p>
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+            <a href="{% url 'turma_list' %}" class="btn btn-light btn-lg px-5 rounded-pill fw-bold">Ver Turmas</a>
+            <a href="/admin/" class="btn btn-outline-secondary btn-lg px-5 rounded-pill" target="_blank">Acessar Admin</a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-4">
+    <div class="col-md-4">
+        <div class="card h-100 text-center border-0 p-4">
+            <h3 class="fw-bold text-white mb-3">01</h3>
+            <h5 class="text-white">Cadastros Base</h5>
+            <p class="text-secondary small">Organize o escopo do sistema gerenciando Áreas do Saber, Ocupações e Cidades.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 text-center border-0 p-4">
+            <h3 class="fw-bold text-white mb-3">02</h3>
+            <h5 class="text-white">Estrutura de Ensino</h5>
+            <p class="text-secondary small">Crie e vincule Instituições, Cursos, Disciplinas e aloque seus alunos eficientemente.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 text-center border-0 p-4">
+            <h3 class="fw-bold text-white mb-3">03</h3>
+            <h5 class="text-white">Controle Diário</h5>
+            <p class="text-secondary small">Registre frequências e ocorrências disciplinares em um ambiente seguro e auditável.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

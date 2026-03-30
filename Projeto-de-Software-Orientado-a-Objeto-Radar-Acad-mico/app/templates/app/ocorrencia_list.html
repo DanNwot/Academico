@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<h2>Registro de Ocorrências</h2>
+<table border="1">
+    <tr>
+        <th>Data</th>
+        <th>Aluno Envolvido</th>
+        <th>Disciplina</th>
+        <th>Descrição</th>
+    </tr>
+    {% for ocorrencia in ocorrencias %}
+    <tr>
+        <td>{{ ocorrencia.data|date:"d/m/Y" }}</td>
+        <td>{{ ocorrencia.pessoa.nome }}</td>
+        <td>{{ ocorrencia.disciplina.nome }}</td>
+        <td>{{ ocorrencia.descricao }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

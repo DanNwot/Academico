@@ -1,0 +1,16 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<h2>Lista de Turmas</h2>
+<table border="1">
+    <tr>
+        <th>Nome da Turma</th>
+        <th>Curso Pertencente</th>
+    </tr>
+    {% for turma in turmas %}
+    <tr>
+        <td>{{ turma.nome }}</td>
+        <td>{{ turma.curso.nome }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
