@@ -2,30 +2,32 @@
 
 {% block content %}
 <div class="card shadow-sm border-0">
-    <div class="card-header bg-warning text-dark">
-        <h4 class="mb-0">Listagem de Instituições de Ensino</h4>
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0 fw-bold">Lista de Instituições</h4>
+        <a href="{% url 'instituicao_criar' %}" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">+ Nova Instituição</a>
     </div>
     <div class="card-body">
-        <table class="table table-striped table-hover mt-3">
+        <table class="table table-dark table-striped table-hover mt-2 align-middle">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Site</th>
-                    <th>Telefone</th>
+                    <th>Nome da Instituição</th>
                     <th>Cidade</th>
+                    <th class="text-end">Ações</th>
                 </tr>
             </thead>
             <tbody>
-                {% for inst in instituicoes %}
+                {% for instituicao in instituicoes %}
                 <tr>
-                    <td><strong>{{ inst.nome }}</strong></td>
-                    <td><a href="{{ inst.site }}" target="_blank">{{ inst.site }}</a></td>
-                    <td>{{ inst.telefone }}</td>
-                    <td>{{ inst.cidade }}</td>
+                    <td><strong>{{ instituicao.nome }}</strong></td>
+                    <td>{{ instituicao.cidade.nome }}</td>
+                    <td class="text-end">
+                        <a href="{% url 'instituicao_editar' instituicao.id %}" class="btn btn-sm btn-outline-warning rounded-pill px-3">Editar</a>
+                        <a href="{% url 'instituicao_excluir' instituicao.id %}" class="btn btn-sm btn-outline-danger rounded-pill px-3 ms-1">Excluir</a>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4" class="text-center">Nenhuma instituição cadastrada.</td>
+                    <td colspan="3" class="text-center text-secondary py-4">Nenhuma instituição cadastrada ainda.</td>
                 </tr>
                 {% endfor %}
             </tbody>

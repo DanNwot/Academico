@@ -1,20 +1,41 @@
 {% extends 'app/base.html' %}
+
 {% block content %}
-<h2>Controle de Frequência</h2>
-<table border="1">
-    <tr>
-        <th>Aluno</th>
-        <th>Curso</th>
-        <th>Disciplina</th>
-        <th>Nº de Faltas</th>
-    </tr>
-    {% for freq in frequencias %}
-    <tr>
-        <td>{{ freq.pessoa.nome }}</td>
-        <td>{{ freq.curso.nome }}</td>
-        <td>{{ freq.disciplina.nome }}</td>
-        <td style="color: red; font-weight: bold;">{{ freq.numero_faltas }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="card shadow-sm border-0">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0 fw-bold">Diário de Frequências</h4>
+        <a href="{% url 'frequencia_criar' %}" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">+ Lançar Faltas</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-dark table-striped table-hover mt-2 align-middle">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Disciplina</th>
+                    <th>Aluno</th>
+                    <th>Faltas</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in frequencias %}
+                <tr>
+                    <td>{{ f.data|date:"d/m/Y" }}</td>
+                    <td>{{ f.disciplina.nome }}</td>
+                    <td>{{ f.pessoa.nome }}</td>
+                    <td><span class="badge bg-danger">{{ f.numero_faltas }}</span></td>
+                    <td class="text-end">
+                        <a href="{% url 'frequencia_editar' f.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'frequencia_excluir' f.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">Nenhum registro de falta encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

@@ -1,12 +1,36 @@
 {% extends 'app/base.html' %}
+
 {% block content %}
-<div class="card shadow-sm border-0"><div class="card-header bg-info text-white"><h4 class="mb-0">Cidades</h4></div>
-    <div class="card-body"><table class="table table-striped mt-3">
-        <thead><tr><th>Nome</th><th>UF</th></tr></thead>
-        <tbody>
-            {% for cid in cidades %}<tr><td>{{ cid.nome }}</td><td>{{ cid.uf }}</td></tr>
-            {% empty %}<tr><td colspan="2">Nenhuma cidade cadastrada.</td></tr>{% endfor %}
-        </tbody>
-    </table></div>
+<div class="card shadow-sm border-0">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0 fw-bold">Lista de Cidades</h4>
+        <a href="{% url 'cidade_criar' %}" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">+ Nova Cidade</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-dark table-striped table-hover mt-2 align-middle">
+            <thead>
+                <tr>
+                    <th>Nome da Cidade</th>
+                    <th>Estado (UF)</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cidade in cidades %}
+                <tr>
+                    <td><strong>{{ cidade.nome }}</strong></td>
+                    <td>{{ cidade.uf }}</td> <td class="text-end">
+                        <a href="{% url 'cidade_editar' cidade.id %}" class="btn btn-sm btn-outline-warning rounded-pill px-3">Editar</a>
+                        <a href="{% url 'cidade_excluir' cidade.id %}" class="btn btn-sm btn-outline-danger rounded-pill px-3 ms-1">Excluir</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center text-secondary py-4">Nenhuma cidade cadastrada ainda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

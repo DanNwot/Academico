@@ -72,7 +72,6 @@
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="{% url 'area_saber_list' %}">Áreas do Saber</a></li>
                             <li><a class="dropdown-item" href="{% url 'ocupacao_list' %}">Ocupações</a></li>
-                            <li><a class="dropdown-item" href="{% url 'turno_list' %}">Turnos</a></li>
                             <li><a class="dropdown-item" href="{% url 'cidade_list' %}">Cidades</a></li>
                         </ul>
                     </li>
@@ -80,6 +79,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Acadêmico</a>
                         <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="{% url 'frequencia_list' %}">Diário de Frequências</a></li>
+                            <li><a class="dropdown-item" href="{% url 'matricula_list' %}">Matrículas</a></li>
                             <li><a class="dropdown-item" href="{% url 'pessoa_list' %}">Pessoas</a></li>
                             <li><a class="dropdown-item" href="{% url 'instituicao_list' %}">Instituições</a></li>
                             <li><a class="dropdown-item" href="{% url 'curso_list' %}">Cursos</a></li>
