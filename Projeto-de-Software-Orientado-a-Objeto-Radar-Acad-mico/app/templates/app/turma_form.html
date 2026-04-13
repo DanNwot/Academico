@@ -1,19 +1,18 @@
 {% extends 'app/base.html' %}
-
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card shadow-sm border-0 mt-4">
-            <div class="card-header bg-warning text-dark">
-                <h4 class="mb-0 fw-bold">{{ acao }}</h4>
+        <div class="card bg-dark text-white shadow-sm border-warning mt-4">
+            <div class="card-header border-warning d-flex align-items-center">
+                <h4 class="mb-0 fw-bold text-warning"><i class="bi bi-pencil-square me-2"></i>{{ acao }} Turma</h4>
             </div>
             <div class="card-body p-4">
                 <form method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <div class="d-flex justify-content-end mt-4">
-                        <a href="{% url 'turma_list' %}" class="btn btn-outline-secondary me-2 rounded-pill px-4">Cancelar</a>
-                        <button type="submit" class="btn btn-warning rounded-pill px-4 fw-bold">Salvar Alterações</button>
+                        <a href="{% url 'turma_list' %}" class="btn btn-outline-light me-2">Cancelar</a>
+                        <button type="submit" class="btn btn-warning text-dark fw-bold">Salvar Alterações</button>
                     </div>
                 </form>
             </div>

@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-white"><i class="bi bi-file-earmark-text"></i> Avaliações</h2>
+    <a href="{% url 'avaliacao_criar' %}" class="btn btn-success fw-bold">+ Nova Avaliação</a>
+</div>
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0">
+                <thead class="card-header">
+                    <tr>
+                        <th>Título</th>
+                        <th>Disciplina</th>
+                        <th>Data</th>
+                        <th>Valor (Pontos)</th>
+                        <th width="20%" class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for av in avaliacoes %}
+                    <tr>
+                        <td>{{ av.titulo }}</td>
+                        <td>{{ av.disciplina.nome }}</td>
+                        <td>{{ av.data|date:"d/m/Y" }}</td>
+                        <td>{{ av.valor_maximo }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'avaliacao_editar' av.id %}" class="btn btn-sm btn-outline-warning">Editar</a>
+                            <a href="{% url 'avaliacao_excluir' av.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-3">Nenhuma avaliação cadastrada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

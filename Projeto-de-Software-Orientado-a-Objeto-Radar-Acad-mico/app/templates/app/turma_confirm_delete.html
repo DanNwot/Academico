@@ -1,20 +1,18 @@
 {% extends 'app/base.html' %}
-
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card shadow-sm border-0 mt-4 border-danger">
+        <div class="card bg-dark shadow-sm border-danger mt-4">
             <div class="card-header bg-danger text-white">
-                <h4 class="mb-0">Confirmar Exclusão</h4>
+                <h4 class="mb-0 fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirmar Exclusão de Turma</h4>
             </div>
             <div class="card-body p-4 text-center">
-                <h5 class="text-white mb-4">Você tem certeza que deseja excluir a turma: <br><strong class="text-danger">"{{ obj.nome }}"</strong>?</h5>
+                <h5 class="text-white mb-4">Você tem certeza que deseja excluir a turma:<br><strong class="text-danger fs-4">"{{ obj.nome }}"</strong>?</h5>
                 <p class="text-secondary small mb-4">Esta ação não poderá ser desfeita.</p>
-                
                 <form method="POST">
                     {% csrf_token %}
-                    <a href="{% url 'turma_list' %}" class="btn btn-outline-secondary rounded-pill px-4 me-2">Cancelar</a>
-                    <button type="submit" class="btn btn-danger rounded-pill px-4">Sim, Excluir</button>
+                    <a href="{% url 'turma_list' %}" class="btn btn-outline-light me-2">Cancelar</a>
+                    <button type="submit" class="btn btn-danger fw-bold">Sim, Excluir</button>
                 </form>
             </div>
         </div>

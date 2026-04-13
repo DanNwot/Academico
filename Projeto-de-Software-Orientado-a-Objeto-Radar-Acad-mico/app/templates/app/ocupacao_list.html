@@ -1,12 +1,33 @@
 {% extends 'app/base.html' %}
 {% block content %}
-<div class="card shadow-sm border-0"><div class="card-header bg-secondary text-white"><h4 class="mb-0">Ocupações</h4></div>
-    <div class="card-body"><table class="table table-striped mt-3">
-        <thead><tr><th>Nome da Ocupação</th></tr></thead>
-        <tbody>
-            {% for ocu in ocupacoes %}<tr><td>{{ ocu.nome }}</td></tr>
-            {% empty %}<tr><td>Nenhuma ocupação cadastrada.</td></tr>{% endfor %}
-        </tbody>
-    </table></div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-white"><i class="bi bi-person-badge"></i> Ocupações</h2>
+    <a href="{% url 'ocupacao_criar' %}" class="btn btn-success fw-bold">+ Nova Ocupação</a>
+</div>
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0">
+                <thead class="card-header">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome da Ocupação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ocupacao in ocupacoes %}
+                    <tr>
+                        <td>{{ ocupacao.id }}</td>
+                        <td>{{ ocupacao.nome }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center text-muted py-3">Nenhuma ocupação cadastrada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

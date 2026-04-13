@@ -9,20 +9,20 @@ class UF(models.Model):
     def __str__(self):
         return self.sigla
 
-class Cidade(models.Model): # RF12 [cite: 8]
+class Cidade(models.Model): # RF12
     nome = models.CharField(max_length=100)
     uf = models.ForeignKey(UF, on_delete=models.CASCADE, related_name='cidades')
 
     def __str__(self):
         return f"{self.nome} - {self.uf.sigla}"
 
-class AreaSaber(models.Model): # RF04 [cite: 6]
-    nome = models.CharField(max_length=100) # Ex: Biológicas, Exatas [cite: 6]
+class AreaSaber(models.Model): # RF04
+    nome = models.CharField(max_length=100) # Ex: Biológicas, Exatas
 
     def __str__(self):
         return self.nome
 
-class InstituicaoEnsino(models.Model): # RF03 [cite: 6]
+class InstituicaoEnsino(models.Model): # RF03
     nome = models.CharField(max_length=150)
     site = models.URLField(blank=True, null=True)
     telefone = models.CharField(max_length=20)
@@ -31,16 +31,16 @@ class InstituicaoEnsino(models.Model): # RF03 [cite: 6]
     def __str__(self):
         return self.nome
 
-class Turno(models.Model): # RF11 [cite: 7]
-    nome = models.CharField(max_length=50) # Ex: matutino, vespertino [cite: 7]
+class Turno(models.Model): # RF11
+    nome = models.CharField(max_length=50) # Ex: matutino, vespertino
 
     def __str__(self):
         return self.nome
 
 # --- REQUISITOS DE PESSOAS E OCUPAÇÃO (COM HERANÇA) ---
 
-class Ocupacao(models.Model): # RF02 [cite: 6]
-    nome = models.CharField(max_length=100) # Ex: Professor, estudante [cite: 6]
+class Ocupacao(models.Model): # RF02
+    nome = models.CharField(max_length=100) # Ex: Professor, estudante
 
     def __str__(self):
         return self.nome
@@ -57,7 +57,7 @@ class PessoaBase(models.Model):
     class Meta:
         abstract = True
 
-class Pessoa(PessoaBase): # RF01 [cite: 6]
+class Pessoa(PessoaBase): # RF01
     cidade = models.ForeignKey(Cidade, on_delete=models.SET_NULL, null=True)
     ocupacao = models.ForeignKey(Ocupacao, on_delete=models.SET_NULL, null=True, related_name='pessoas')
 
@@ -66,7 +66,7 @@ class Pessoa(PessoaBase): # RF01 [cite: 6]
 
 # --- REQUISITOS ACADÊMICOS ---
 
-class Curso(models.Model): # RF05 [cite: 7]
+class Curso(models.Model): # RF05
     nome = models.CharField(max_length=150)
     carga_horaria_total = models.IntegerField()
     duracao_meses = models.IntegerField()
@@ -76,27 +76,27 @@ class Curso(models.Model): # RF05 [cite: 7]
     def __str__(self):
         return self.nome
 
-class Disciplina(models.Model): # RF07 [cite: 7]
+class Disciplina(models.Model): # RF07
     nome = models.CharField(max_length=100)
     area_saber = models.ForeignKey(AreaSaber, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.nome
 
-class CursoDisciplina(models.Model): # RF14 [cite: 8]
+class CursoDisciplina(models.Model): # RF14
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name='disciplinas_curso')
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
     carga_horaria = models.IntegerField()
     periodo = models.IntegerField() # Ex: 1 para 1º semestre
 
-class Turma(models.Model): # RF06 [cite: 7]
-    nome = models.CharField(max_length=50) # Ex: Info A, Info B [cite: 7]
+class Turma(models.Model): # RF06
+    nome = models.CharField(max_length=50) # Ex: Info A, Info B
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE, null=True)
     
     def __str__(self):
         return self.nome
 
-class Matricula(models.Model): # RF08 [cite: 7]
+class Matricula(models.Model): # RF08
     instituicao_ensino = models.ForeignKey(InstituicaoEnsino, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE, related_name='matriculas')
@@ -106,13 +106,13 @@ class Matricula(models.Model): # RF08 [cite: 7]
 
 # --- REQUISITOS DE AVALIAÇÃO E ROTINA ---
 
-class AvaliacaoTipo(models.Model): # RF15 [cite: 8]
-    nome = models.CharField(max_length=50) # Ex: Prova, trabalho [cite: 8]
+class AvaliacaoTipo(models.Model): # RF15
+    nome = models.CharField(max_length=50) # Ex: Prova, trabalho
 
     def __str__(self):
         return self.nome
 
-class Avaliacao(models.Model): # RF09 [cite: 7]
+class Avaliacao(models.Model): # RF09
     descricao = models.CharField(max_length=200)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE, related_name='avaliacoes')
@@ -121,15 +121,37 @@ class Avaliacao(models.Model): # RF09 [cite: 7]
     def __str__(self):
         return self.descricao
 
-class Frequencia(models.Model): # RF10 [cite: 7]
+class Frequencia(models.Model): # RF10
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
     pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE, related_name='frequencias')
     numero_faltas = models.IntegerField()
 
-class Ocorrencia(models.Model): # RF13 [cite: 8]
+class Ocorrencia(models.Model): # RF13
     descricao = models.TextField()
     data = models.DateField()
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
     pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
+
+# --- NOVOS MODELOS ADICIONADOS ---
+
+class Nota(models.Model):
+    valor = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="Valor da Nota")
+    
+    def __str__(self):
+        return str(self.valor)
+
+class Sala(models.Model):
+    nome = models.CharField(max_length=50, verbose_name="Nome/Número da Sala")
+    capacidade = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.nome
+
+class Evento(models.Model):
+    titulo = models.CharField(max_length=150, verbose_name="Título do Evento")
+    data_evento = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.titulo

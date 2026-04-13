@@ -1,41 +1,42 @@
 {% extends 'app/base.html' %}
-
 {% block content %}
-<div class="card shadow-sm border-0">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h4 class="mb-0 fw-bold">Diário de Frequências</h4>
-        <a href="{% url 'frequencia_criar' %}" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">+ Lançar Faltas</a>
-    </div>
-    <div class="card-body">
-        <table class="table table-dark table-striped table-hover mt-2 align-middle">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Disciplina</th>
-                    <th>Aluno</th>
-                    <th>Faltas</th>
-                    <th class="text-end">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for f in frequencias %}
-                <tr>
-                    <td>{{ f.data|date:"d/m/Y" }}</td>
-                    <td>{{ f.disciplina.nome }}</td>
-                    <td>{{ f.pessoa.nome }}</td>
-                    <td><span class="badge bg-danger">{{ f.numero_faltas }}</span></td>
-                    <td class="text-end">
-                        <a href="{% url 'frequencia_editar' f.id %}" class="btn btn-sm btn-warning">Editar</a>
-                        <a href="{% url 'frequencia_excluir' f.id %}" class="btn btn-sm btn-danger">Excluir</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center text-muted">Nenhum registro de falta encontrado.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-white"><i class="bi bi-journal-check"></i> Diário de Frequências</h2>
+    <a href="{% url 'frequencia_criar' %}" class="btn btn-success fw-bold">+ Lançar Faltas</a>
+</div>
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0">
+                <thead class="card-header">
+                    <tr>
+                        <th>Data</th>
+                        <th>Disciplina</th>
+                        <th>Aluno</th>
+                        <th>Faltas</th>
+                        <th width="20%" class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in frequencias %}
+                    <tr>
+                        <td>{{ f.data|date:"d/m/Y" }}</td>
+                        <td>{{ f.disciplina.nome }}</td>
+                        <td>{{ f.pessoa.nome }}</td>
+                        <td><span class="badge bg-danger">{{ f.numero_faltas }}</span></td>
+                        <td class="text-center">
+                            <a href="{% url 'frequencia_editar' f.id %}" class="btn btn-sm btn-outline-warning">Editar</a>
+                            <a href="{% url 'frequencia_excluir' f.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-3">Nenhum registro de falta encontrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}

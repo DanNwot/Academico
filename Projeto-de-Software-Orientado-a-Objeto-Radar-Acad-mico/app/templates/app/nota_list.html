@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-white"><i class="bi bi-123"></i> Lançamento de Notas</h2>
+    <a href="{% url 'nota_criar' %}" class="btn btn-success fw-bold">+ Lançar Nota</a>
+</div>
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0">
+                <thead class="card-header">
+                    <tr>
+                        <th>Aluno</th>
+                        <th>Avaliação</th>
+                        <th>Disciplina</th>
+                        <th>Nota Obtida</th>
+                        <th width="20%" class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for nota in notas %}
+                    <tr>
+                        <td>{{ nota.aluno.nome }}</td>
+                        <td>{{ nota.avaliacao.titulo }}</td>
+                        <td>{{ nota.avaliacao.disciplina.nome }}</td>
+                        <td><strong class="text-success">{{ nota.valor_obtido }}</strong></td>
+                        <td class="text-center">
+                            <a href="{% url 'nota_editar' nota.id %}" class="btn btn-sm btn-outline-warning">Editar</a>
+                            <a href="{% url 'nota_excluir' nota.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-3">Nenhuma nota lançada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,16 +1,32 @@
 {% extends 'app/base.html' %}
 {% block content %}
-<h2>Lista de Turmas</h2>
-<table border="1">
-    <tr>
-        <th>Nome da Turma</th>
-        <th>Curso Pertencente</th>
-    </tr>
-    {% for turma in turmas %}
-    <tr>
-        <td>{{ turma.nome }}</td>
-        <td>{{ turma.curso.nome }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-white"><i class="bi bi-clock"></i> Lista de Turnos</h2>
+</div>
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0">
+                <thead class="card-header">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Curso Pertencente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for turma in turmas %}
+                    <tr>
+                        <td>{{ turma.nome }}</td>
+                        <td>{{ turma.curso.nome }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center text-muted py-3">Nenhum registro encontrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

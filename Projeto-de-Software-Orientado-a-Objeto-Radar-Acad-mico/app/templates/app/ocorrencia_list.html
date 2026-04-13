@@ -1,20 +1,42 @@
 {% extends 'app/base.html' %}
 {% block content %}
-<h2>Registro de Ocorrências</h2>
-<table border="1">
-    <tr>
-        <th>Data</th>
-        <th>Aluno Envolvido</th>
-        <th>Disciplina</th>
-        <th>Descrição</th>
-    </tr>
-    {% for ocorrencia in ocorrencias %}
-    <tr>
-        <td>{{ ocorrencia.data|date:"d/m/Y" }}</td>
-        <td>{{ ocorrencia.pessoa.nome }}</td>
-        <td>{{ ocorrencia.disciplina.nome }}</td>
-        <td>{{ ocorrencia.descricao }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-white"><i class="bi bi-exclamation-octagon"></i> Ocorrências Disciplinares</h2>
+    <a href="{% url 'ocorrencia_criar' %}" class="btn btn-success fw-bold">+ Registrar Ocorrência</a>
+</div>
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0">
+                <thead class="card-header">
+                    <tr>
+                        <th>Data</th>
+                        <th>Aluno</th>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th width="20%" class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for o in ocorrencias %}
+                    <tr>
+                        <td>{{ o.data|date:"d/m/Y" }}</td>
+                        <td>{{ o.aluno.nome }}</td>
+                        <td><span class="badge bg-warning text-dark">{{ o.tipo }}</span></td>
+                        <td>{{ o.descricao|truncatechars:30 }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'ocorrencia_editar' o.id %}" class="btn btn-sm btn-outline-warning">Editar</a>
+                            <a href="{% url 'ocorrencia_excluir' o.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-3">Nenhuma ocorrência registrada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

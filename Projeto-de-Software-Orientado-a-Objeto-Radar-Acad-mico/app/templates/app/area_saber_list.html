@@ -1,12 +1,33 @@
 {% extends 'app/base.html' %}
 {% block content %}
-<div class="card shadow-sm border-0"><div class="card-header bg-secondary text-white"><h4 class="mb-0">Áreas do Saber</h4></div>
-    <div class="card-body"><table class="table table-striped mt-3">
-        <thead><tr><th>Nome da Área</th></tr></thead>
-        <tbody>
-            {% for area in areas %}<tr><td>{{ area.nome }}</td></tr>
-            {% empty %}<tr><td>Nenhuma área cadastrada.</td></tr>{% endfor %}
-        </tbody>
-    </table></div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-white"><i class="bi bi-journal-bookmark"></i> Áreas do Saber</h2>
+    <a href="{% url 'area_saber_criar' %}" class="btn btn-success fw-bold">+ Nova Área</a>
+</div>
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0">
+                <thead class="card-header">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome da Área</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for area in areas %}
+                    <tr>
+                        <td>{{ area.id }}</td>
+                        <td>{{ area.nome }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center text-muted py-3">Nenhuma área do saber cadastrada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

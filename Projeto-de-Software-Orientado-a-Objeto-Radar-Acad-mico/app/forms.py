@@ -1,45 +1,82 @@
 from django import forms
-from .models import Turma, Curso, Pessoa, InstituicaoEnsino, Disciplina, Cidade, Matricula, Frequencia
+from .models import (
+    Turma, Curso, Pessoa, InstituicaoEnsino, Disciplina, 
+    Cidade, Matricula, Frequencia, AreaSaber, Ocupacao, 
+    Ocorrencia, Avaliacao, Nota, Sala, Evento
+)
 
-# Classe Base Inteligente: Aplica o Dark Mode em TODOS os campos automaticamente
-class BaseDarkForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control bg-dark text-white border-secondary'
+class TurmaForm(forms.ModelForm):
+    class Meta:
+        model = Turma
+        fields = '__all__'
 
-# Agora criamos os formulários com apenas 3 linhas cada!
-class TurmaForm(BaseDarkForm):
-    class Meta: model = Turma; fields = '__all__'
+class CursoForm(forms.ModelForm):
+    class Meta:
+        model = Curso
+        fields = '__all__'
 
-class CursoForm(BaseDarkForm):
-    class Meta: model = Curso; fields = '__all__'
+class PessoaForm(forms.ModelForm):
+    class Meta:
+        model = Pessoa
+        fields = '__all__'
 
-class PessoaForm(BaseDarkForm):
-    class Meta: model = Pessoa; fields = '__all__'
+class InstituicaoForm(forms.ModelForm):
+    class Meta:
+        model = InstituicaoEnsino
+        fields = '__all__'
 
-class InstituicaoForm(BaseDarkForm):
-    class Meta: model = InstituicaoEnsino; fields = '__all__' # CORRIGIDO AQUI
+class DisciplinaForm(forms.ModelForm):
+    class Meta:
+        model = Disciplina
+        fields = '__all__'
 
-class DisciplinaForm(BaseDarkForm):
-    class Meta: model = Disciplina; fields = '__all__'
+class CidadeForm(forms.ModelForm):
+    class Meta:
+        model = Cidade
+        fields = '__all__'
 
-class CidadeForm(BaseDarkForm):
-    class Meta: model = Cidade; fields = '__all__'
-
-class MatriculaForm(BaseDarkForm):
-    class Meta: 
+class MatriculaForm(forms.ModelForm):
+    class Meta:
         model = Matricula
         fields = '__all__'
-        widgets = {
-            'data_inicio': forms.DateInput(attrs={'type': 'date'}),
-            'data_previsao_termino': forms.DateInput(attrs={'type': 'date'}),
-        }
 
-class FrequenciaForm(BaseDarkForm):
+class FrequenciaForm(forms.ModelForm):
     class Meta:
         model = Frequencia
         fields = '__all__'
-        widgets = {
-            'data': forms.DateInput(attrs={'type': 'date'}),
-            }
+
+class AreaSaberForm(forms.ModelForm):
+    class Meta:
+        model = AreaSaber
+        fields = '__all__'
+
+class OcupacaoForm(forms.ModelForm):
+    class Meta:
+        model = Ocupacao
+        fields = '__all__'
+
+class OcorrenciaForm(forms.ModelForm):
+    class Meta:
+        model = Ocorrencia
+        fields = '__all__'
+
+# --- NOVOS FORMS QUE ESTAVAM CAUSANDO O ERRO DE IMPORTAÇÃO ---
+class AvaliacaoForm(forms.ModelForm):
+    class Meta:
+        model = Avaliacao
+        fields = '__all__'
+
+class NotaForm(forms.ModelForm):
+    class Meta:
+        model = Nota
+        fields = '__all__'
+
+class SalaForm(forms.ModelForm):
+    class Meta:
+        model = Sala
+        fields = '__all__'
+
+class EventoForm(forms.ModelForm):
+    class Meta:
+        model = Evento
+        fields = '__all__'
